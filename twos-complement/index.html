@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="styles.css">
+	<title>2's complement tutorial</title>
+</head>
+<body>
+	<div class="explanation hidden"><span class="explanation-spoiler block text-centered">close</span>
+		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis ducimus cupiditate autem libero, quos reprehenderit vitae quasi quia magni sed nisi necessitatibus quam rerum qui placeat sint porro sit eligendi nostrum! Voluptate quos eveniet omnis numquam culpa, nam eligendi tempora voluptas fuga laborum praesentium reiciendis minus illum iure animi earum explicabo possimus doloribus dignissimos officia necessitatibus impedit aut deleniti. Obcaecati, ea, veniam minus sapiente nemo atque neque sit modi quam provident corrupti qui laudantium distinctio possimus at inventore voluptas. Nesciunt, quod facilis. Aperiam, et quas. Quo dolor repellendus porro cum quisquam. Pariatur odio suscipit veniam aspernatur, dicta rerum quas placeat!
+	</div>
+	<h1>Two's complement explanation</h1>
+	<div class="intro">
+		<p>Let we have 8 bits ...</p>
+		<p>Limitations: -128 — 127 <span class="explanation-spoiler">Why?</span></p>
+	</div>
+	<div class="main">
+		<div class="circle-wrapper">
+			<div class="calculations-wrapper">
+				<div class="calculations">
+					<p><span class="dec-value">90</span><sub>10</sub> = <span class="bin-value">1011010</span><sub>2</sub></p>
+					<p>+ (for example: 5 or -5)</p>
+					<p><input type="text" size="2" id="addend"> <button id="calculate">=</button></p>
+				</div>
+			</div>		
+		</div>
+	</div>
+	<script src="tc.js"></script>
+	<script>
+		let tcc = new twosCompCircle({
+			'initValue': 32,
+			'wrapperClassName': 'circle-wrapper'
+		});
+		let calculateBtn = document.getElementById('calculate'),
+			addendInput = document.getElementById('addend'),
+			explanationBlock = document.getElementsByClassName('explanation')[0],
+			explanationSpoilers = document.getElementsByClassName('explanation-spoiler');
+
+		calculateBtn.addEventListener('click', function(e){
+			let limitations = tcc.getDecSignedIntervals(),
+				addend = addendInput.value;
+			if(!!Number.parseInt(addend)){
+				if(addend < limitations.negative.min || addend > limitations.positive.max)
+					console.log('Animate dec limits');
+				else{
+					tcc.calculate(Number.parseInt(addend));
+				}
+			}
+			else
+				console.log('Animate for example string');
+		});
+
+		Array.prototype.forEach.call(explanationSpoilers, function(spoiler){
+			spoiler.addEventListener('click', function(e){
+				explanationBlock.classList.toggle('hidden');
+			});
+		});
+	</script>
+</body>
+</html>
