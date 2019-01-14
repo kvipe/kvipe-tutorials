@@ -1,2 +1,1 @@
-#kvipe tutorials  
-[View in browser](https://kvipe.github.io/kvipe-tutorials/)
+[Tutorials Index](https://kvipe.github.io/kvipe-tutorials/)
