@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="styles.css">
+	<title>2's complement tutorial</title>
+</head>
+<body>
+	<div class="explanation hidden"><span class="explanation-spoiler block text-centered">close</span>
+		<p>Most people know there is microcircuits inside a computer, but not a brain. It is the difficult engineering problem to consider carefully a lot of trade-offs and assemble microcircuit which will have solved our problems. The less irons engineers use, the simpler for them and cheaper for us. Does it really to reduce material costs when designing computer?</p>
+<p>Two's complement format allows us to replace substraction to addition, however a result we get the same if it were substracton.</p>
+<p>Circle below will help to understand it!</p>
+<p>Note that most significant bit 1 tells us about a negative number, while 0 tells about positive.</p>
+<p>Pay attention that -1 + 1 = 0.</p>
+<p>If you will try to calculate something on the paper there will be cases you get one more leftmost bit. It's called overlow.</p>
+<p>In the case of 2's complement computer will have cropped this bit in order to provide a correct result.</p>
+	</div>
+	<h1>Two's complement explanation</h1>
+	<div class="intro">
+		<p><span class="explanation-spoiler">Need the theory?</span></p>
+	</div>
+	<div class="main">
+		<div class="circle-wrapper">
+			<div class="calculations-wrapper">
+				<div class="calculations">
+					<p><span class="dec-value">90</span><sub>10</sub> = <span class="bin-value">1011010</span><sub>2</sub></p>
+					<p>+ (for example: 5 or -5)</p>
+					<p><input type="text" size="2" id="addend"> <button id="calculate">=</button></p>
+				</div>
+			</div>		
+		</div>
+	</div>
+	<script src="tc.js"></script>
+	<script>
+		let tcc = new twosCompCircle({
+			'initValue': 32,
+			'wrapperClassName': 'circle-wrapper'
+		});
+		let calculateBtn = document.getElementById('calculate'),
+			addendInput = document.getElementById('addend'),
+			explanationBlock = document.getElementsByClassName('explanation')[0],
+			explanationSpoilers = document.getElementsByClassName('explanation-spoiler');
+
+		calculateBtn.addEventListener('click', function(e){
+			let limitations = tcc.getDecSignedIntervals(),
+				addend = addendInput.value;
+			if(!!Number.parseInt(addend)){
+				if(addend < limitations.negative.min || addend > limitations.positive.max)
+					console.log('Animate dec limits');
+				else{
+					tcc.calculate(Number.parseInt(addend));
+				}
+			}
+			else
+				console.log('Animate for example string');
+		});
+
+		Array.prototype.forEach.call(explanationSpoilers, function(spoiler){
+			spoiler.addEventListener('click', function(e){
+				explanationBlock.classList.toggle('hidden');
+			});
+		});
+	</script>
+</body>
+</html>
