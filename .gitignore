@@ -1,5 +1,1 @@
-twos-complement/*
-!twos-complement/*.html
-!twos-complement/*.css
-!twos-complement/*.js
-!twos-complement/*.md
+node_modules/
